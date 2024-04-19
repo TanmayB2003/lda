@@ -7,7 +7,7 @@ pages = []
 full_pages = []
 vocab = []
 
-def get_categorymembers(categorymembers, level=0, max_level=0):
+def get_categorymembers(categorymembers, level=0, max_level=1):
         for c in categorymembers.values():
             pages.append(c.title)
             if c.ns == wikipediaapi.Namespace.CATEGORY and level < max_level:
