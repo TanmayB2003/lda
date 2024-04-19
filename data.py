@@ -5,8 +5,9 @@ wiki_wiki = wikipediaapi.Wikipedia('ExiledRaptor', 'en')
 
 pages = []
 full_pages = []
+vocab = []
 
-def get_categorymembers(categorymembers, level=0, max_level=1):
+def get_categorymembers(categorymembers, level=0, max_level=0):
         for c in categorymembers.values():
             pages.append(c.title)
             if c.ns == wikipediaapi.Namespace.CATEGORY and level < max_level:
@@ -61,11 +62,10 @@ stops += ["a", "about", "above", "across", "after", "afterwards", "again", "agai
     "who", "whoever", "whole", "whom", "whose", "why", "will", "with",
     "within", "without", "would", "yet", "you", "your", "yours", "yourself",
     "yourselves"]
+
 delimiter = ["\n", "\t", ".", "!", "?", ",", ";", ":", "[", "]", "{", "}", "-", "+", 
     "_", "/", "@", "#", "$", "%", "^", "&", "*", "(", ")", "<", ">", "|", "=",
     ".-", ".,", "'", '"', ',"', '–']
-
-
 
 for page in pages:
     wiki = wiki_wiki.page(page).text
@@ -76,6 +76,9 @@ for page in pages:
     for stop in stops:
         full_page = [word for word in full_page if word != stop]
     full_pages.append(full_page)
+    vocab += full_page
 
-print(len(full_pages), ' Documents Fetched')
+vocab = list(set(vocab))
+print(len(full_pages), 'Documents Fetched')
+print(len(vocab), 'Unique Words Found')
 
