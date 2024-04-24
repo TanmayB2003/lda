@@ -65,7 +65,7 @@ stops += ["a", "about", "above", "across", "after", "afterwards", "again", "agai
 
 delimiter = ["\n", "\t", ".", "!", "?", ",", ";", ":", "[", "]", "{", "}", "-", "+", 
     "_", "/", "@", "#", "$", "%", "^", "&", "*", "(", ")", "<", ">", "|", "=",
-    ".-", ".,", "'", '"', ',"', '–']
+    ".-", ".,", "'", '"', ',"', '-', '—', '–']
 
 for page in pages:
     wiki = wiki_wiki.page(page).text
@@ -77,8 +77,8 @@ for page in pages:
         full_page = [word for word in full_page if word != stop and not word.isnumeric()]
     full_pages.append(full_page)
     vocab += full_page
-
-vocab = list(set(vocab))
+    
+vocab = list(set(vocab)) 
 print(len(full_pages), 'Documents Fetched')
-print(vocab.index('history'))
+print(len(vocab), 'Unique Words Found')
 
