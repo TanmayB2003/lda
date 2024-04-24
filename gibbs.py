@@ -55,8 +55,8 @@ def gibbs(docs,n_iter,vocab):
 				n_tw[new_topic,word]+=1
 				n_dt[i,new_topic]+=1
 				record[i,j,x+1]=new_topic
-		if (x+1)%100 == 0:
-			print(x+1, 'iterations complete')
+		# if (x+1)%10 == 0:
+		print(x+1, 'iterations complete')
 	return n_tw,n_dt
   
 def heat(x_array,y_array,prob,doc):
@@ -76,7 +76,7 @@ def heat(x_array,y_array,prob,doc):
 	plt.show()
 
 def graph(docs,vocab):
-	a,b=gibbs(docs,1000,vocab)
+	a,b=gibbs(docs,100,vocab)
 	word_topic=np.zeros((nt,n_words),dtype=float)
 	doc_topic=np.zeros((M,nt),dtype=float)
 	# doc_topic=[]
@@ -98,4 +98,5 @@ for i in range (len(full_pages)):
 			word=full_pages[i][j]
 			doc.append(vocab.index(word))
 		docs.append(doc)
+	
 graph(docs,vocab)
