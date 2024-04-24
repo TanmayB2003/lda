@@ -1,9 +1,7 @@
 import numpy as np 
-np.random.seed(0)
-import pandas as pd 
 import matplotlib.pyplot as plt 
 import seaborn as sns
-from data import full_pages,vocab
+from data import docs,vocab
 
 def init(docs,vocab):
 	global M,nt,N,n_words,words,alpha,eta,n_tw,n_dt
@@ -12,6 +10,7 @@ def init(docs,vocab):
 	N=0
 	words=[]
 	n_words=len(vocab)
+	np.random.seed(0)
 	for i in range(M):
 		N=max(N,len(docs[i]))
 		# n_words+=len(docs[i])
@@ -59,7 +58,7 @@ def gibbs(docs,n_iter,vocab):
 		print(x+1, 'iterations complete')
 	return n_tw,n_dt
   
-def heat(x_array,y_array,prob,doc):
+def heat(prob,doc):
 	plt.figure(figsize=(8,8))
 	plt.subplot(121)
 	n_plot_words = 150
@@ -75,8 +74,8 @@ def heat(x_array,y_array,prob,doc):
 	plt.tight_layout()
 	plt.show()
 
-def graph(docs,vocab):
-	a,b=gibbs(docs,100,vocab)
+def graph(docs,vocab, n_iter):
+	a,b=gibbs(docs,n_iter,vocab)
 	word_topic=np.zeros((nt,n_words),dtype=float)
 	doc_topic=np.zeros((M,nt),dtype=float)
 	# doc_topic=[]
@@ -89,14 +88,8 @@ def graph(docs,vocab):
 		for j in range (nt):
 			doc_topic[i,j]=(b[i,j]+alpha)/(b[i,:].sum()+nt*alpha)
 	heat(topic_array,words_array,word_topic,doc_topic)
-  
-docs=[]
 
-for i in range (len(full_pages)):
-		doc=[]
-		for j in range (len(full_pages[i])):
-			word=full_pages[i][j]
-			doc.append(vocab.index(word))
-		docs.append(doc)
-	
-graph(docs,vocab)
+
+if __name__ == '__main__':
+    graph(docs,vocab, 5)
+    graph(docs,vocab, 100)

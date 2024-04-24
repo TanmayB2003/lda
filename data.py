@@ -82,3 +82,11 @@ vocab = list(set(vocab))
 print(len(full_pages), 'Documents Fetched')
 print(len(vocab), 'Unique Words Found')
 
+docs=[]
+
+for i in range (len(full_pages)):
+        doc=[]
+        for j in range (len(full_pages[i])):
+            word=full_pages[i][j]
+            doc.append(vocab.index(word))
+        docs.append(doc)
