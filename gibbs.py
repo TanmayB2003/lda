@@ -72,7 +72,7 @@ def heat(x_array,y_array,prob,doc):
 	plt.xlabel("Topics", fontsize=14)
 	plt.ylabel("Documents", fontsize=14)
 	plt.title("document-topic distribution", fontsize=16)
-	plt.tight_layout();
+	plt.tight_layout()
 	plt.show()
 
 def graph(docs,vocab):
