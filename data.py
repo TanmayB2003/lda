@@ -7,7 +7,7 @@ pages = []
 full_pages = []
 vocab = []
 
-def get_categorymembers(categorymembers, level=0, max_level=1):
+def get_categorymembers(categorymembers, level=0, max_level=0):
         for c in categorymembers.values():
             pages.append(c.title)
             if c.ns == wikipediaapi.Namespace.CATEGORY and level < max_level:
@@ -74,11 +74,11 @@ for page in pages:
        wiki = wiki.replace(d, " ")
     full_page = wiki.split()
     for stop in stops:
-        full_page = [word for word in full_page if word != stop]
+        full_page = [word for word in full_page if word != stop and not word.isnumeric()]
     full_pages.append(full_page)
     vocab += full_page
 
 vocab = list(set(vocab))
 print(len(full_pages), 'Documents Fetched')
-print(len(vocab), 'Unique Words Found')
+print(vocab.index('history'))
 
